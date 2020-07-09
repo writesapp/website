@@ -1,23 +1,40 @@
-import React from "react";
-import { auth } from "../../firebase";
-import { Layout, Menu, Breadcrumb, Input } from "antd";
+import React, { useState } from "react";
+import { useMountEffect } from "../../hooks/useMountEffect";
+import styled from "styled-components";
+import { auth, db } from "../../firebase";
+import { Layout, Menu, Breadcrumb } from "antd";
+import WritesTable from "../../components/WritesTable/WritesTable";
 import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { navigate } from '@reach/router';
 
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
-const { Search } = Input;
+
+const PageContent = styled.div`
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+`;
 
 export default function Main() {
+  const [writes, setWrites] = useState([]);
+
+  useMountEffect(() => {
+    const writesRef = db.collection("writes");
+
+    writesRef.get().then(({ docs }) => {
+      const allWrites = [];
+
+      docs.map((obj) => allWrites.push({ ...obj.data(), id: obj.id }));
+
+      setWrites(allWrites);
+    });
+  });
+
   return (
     <Layout className="layout">
       <Header>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Search
-            placeholder="search for writes."
-            onSearch={(value) => console.log(value)}
-            style={{ width: 250, marginRight: 25 }}
-          />
           <Menu.Item key="1">Writes</Menu.Item>
           <Menu.Item key="2">Add write</Menu.Item>
           <SubMenu icon={<SettingOutlined />} style={{ float: "right" }}>
@@ -38,7 +55,9 @@ export default function Main() {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Writes</Breadcrumb.Item>
         </Breadcrumb>
-        <div className="site-layout-content">Content</div>
+        <PageContent>
+          <WritesTable dataSource={writes} />
+        </PageContent>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {new Date().getFullYear()} writes.
