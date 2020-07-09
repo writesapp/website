@@ -1,23 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../providers/UserProvider";
 import { useMountEffect } from "../../hooks/useMountEffect";
 import styled from "styled-components";
 import { auth, db } from "../../firebase";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, Breadcrumb, Modal, Typography } from "antd";
 import WritesTable from "../../components/WritesTable/WritesTable";
 import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { navigate } from '@reach/router';
 
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
+const { Title } = Typography;
 
 const PageContent = styled.div`
   background: #fff;
   padding: 24px;
   min-height: 280px;
 `;
+  
+const StyledAvatar = styled.img`
+  margin: 0 auto;
+  width: 125px;
+  border-radius: 50%;
+  display: block;
+`;
 
 export default function Main() {
+  const { user } = useContext(UserContext);
+  const [visible, setVisible] = useState(false);
   const [writes, setWrites] = useState([]);
+  
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
   useMountEffect(() => {
     const writesRef = db.collection("writes");
@@ -38,7 +57,7 @@ export default function Main() {
           <Menu.Item key="1">Writes</Menu.Item>
           <Menu.Item key="2">Add write</Menu.Item>
           <SubMenu icon={<SettingOutlined />} style={{ float: "right" }}>
-            <Menu.Item key="settings:1" icon={<UserOutlined />} onClick={() => alert('profile')}>
+            <Menu.Item key="settings:1" icon={<UserOutlined />} onClick={showModal}>
               Profile
             </Menu.Item>
             <Menu.Item key="settings:2" icon={<LinkOutlined />} onClick={() => navigate('/?redirect=false')}>
@@ -50,6 +69,13 @@ export default function Main() {
           </SubMenu>
         </Menu>
       </Header>
+      <Modal visible={visible} title="Profile" onCancel={handleCancel} footer={null}>
+        <StyledAvatar src={user.photoURL} />
+        <Title style={{ textAlign: "center", margin: 25 }} level={2}>
+          {user.displayName}
+        </Title>
+        {console.log(user)}
+      </Modal>
       <Content style={{ padding: "0 50px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
