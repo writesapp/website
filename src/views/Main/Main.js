@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
-import { UserContext } from "../../providers/UserProvider";
-import { auth } from "../../firebase";
+import React, { useState } from "react";
+import { useMountEffect } from "../../hooks/useMountEffect";
+import styled from "styled-components";
+import { auth, db } from "../../firebase";
 import { Layout, Menu, Breadcrumb, Input } from "antd";
 import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 
@@ -8,18 +9,34 @@ const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 const { Search } = Input;
 
+const PageContent = styled.div`
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+`;
+
 export default function Main() {
-  const { user } = useContext(UserContext);
+  const [writes, setWrites] = useState([]);
+
+  useMountEffect(() => {
+    const writesRef = db.collection("writes");
+
+    writesRef.get().then(({ docs }) => {
+      console.log(docs);
+
+      docs.map((obj) => console.log(obj.data()));
+    });
+  });
 
   return (
     <Layout className="layout">
       <Header>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Search
+          {/* <Search
             placeholder="search for writes."
             onSearch={(value) => console.log(value)}
             style={{ width: 250, marginRight: 25 }}
-          />
+          /> */}
           <Menu.Item key="1">Writes</Menu.Item>
           <Menu.Item key="2">Add write</Menu.Item>
           <SubMenu icon={<SettingOutlined />} style={{ float: "right" }}>
@@ -37,7 +54,7 @@ export default function Main() {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Writes</Breadcrumb.Item>
         </Breadcrumb>
-        <div className="site-layout-content">Content</div>
+        <PageContent></PageContent>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {new Date().getFullYear()} writes.
