@@ -3,12 +3,10 @@ import { UserContext } from "../../providers/UserProvider";
 import { useMountEffect } from "../../hooks/useMountEffect";
 import styled from "styled-components";
 import { auth, db } from "../../firebase";
-import { Layout, Menu, Breadcrumb, Modal, Typography } from "antd";
 import WritesTable from "../../components/WritesTable/WritesTable";
 import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { navigate } from '@reach/router';
-import { Layout, Menu, Breadcrumb, Input, Modal, Button, Form } from "antd";
-import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
+import { Layout, Menu, Breadcrumb, Input, Modal, Button, Form, Typography } from "antd";
 
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
