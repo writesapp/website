@@ -14,11 +14,11 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default function Login() {
+export default function Login(props) {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) navigate("/app", { replace: true });
+    if (user ) navigate("/app", { replace: true });
   });
 
   return (
