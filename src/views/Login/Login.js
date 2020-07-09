@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { UserContext } from "../../providers/UserProvider";
-import { navigate } from '@reach/router';
-import { auth, googleProvider } from '../../firebaseInit';
+import { navigate } from "@reach/router";
+import { auth, googleProvider } from "../../firebase";
 
 const StyledButton = styled.button`
   margin: 20px;
@@ -12,19 +12,19 @@ const StyledButton = styled.button`
   padding: 13px;
   font-weight: bold;
   font-size: 1em;
-  transition: color .3s ease-out;
+  transition: color 0.3s ease-out;
 
   &::after {
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     z-index: -1;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color:darkorchid;
+    background-color: darkorchid;
     transform: scaleX(0);
-    transition: transform .3s ease-out;
+    transition: transform 0.3s ease-out;
   }
 
   &:hover {
@@ -41,10 +41,12 @@ export default function Login() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) navigate('/', { replace: true });
+    if (user) navigate("/", { replace: true });
   });
 
   return (
-    <StyledButton onClick={() => auth.signInWithPopup(googleProvider)}>Login with Google</StyledButton>
-  )
+    <StyledButton onClick={() => auth.signInWithPopup(googleProvider)}>
+      Login with Google
+    </StyledButton>
+  );
 }
