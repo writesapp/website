@@ -1,40 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../providers/UserProvider";
 import { navigate } from "@reach/router";
+import { Typography, Button } from "antd";
+import { UserContext } from "../../providers/UserProvider";
 import { auth, googleProvider } from "../../firebase";
 
-const StyledButton = styled.button`
-  margin: 20px;
-  border: 3px solid black;
-  background: none;
-  position: relative;
-  padding: 13px;
-  font-weight: bold;
-  font-size: 1em;
-  transition: color 0.3s ease-out;
-
-  &::after {
-    content: "";
-    top: 0;
-    left: 0;
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: darkorchid;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-out;
-  }
-
-  &:hover {
-    color: white;
-    cursor: pointer;
-  }
-
-  &:hover::after {
-    transform: scaleX(1);
-  }
+const Wrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function Login() {
@@ -45,8 +22,9 @@ export default function Login() {
   });
 
   return (
-    <StyledButton onClick={() => auth.signInWithPopup(googleProvider)}>
-      Login with Google
-    </StyledButton>
+    <Wrapper>
+      <Typography.Title>writes.</Typography.Title>
+      <Button onClick={() => auth.signInWithPopup(googleProvider)}>Zaloguj się z Google</Button>
+    </Wrapper>
   );
 }
