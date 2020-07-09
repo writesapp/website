@@ -22,9 +22,11 @@ export default function Main() {
     const writesRef = db.collection("writes");
 
     writesRef.get().then(({ docs }) => {
-      console.log(docs);
+      const allWrites = [];
 
-      docs.map((obj) => console.log(obj.data()));
+      docs.map((obj) => allWrites.push({ data: obj.data(), id: obj.id }));
+
+      setWrites(allWrites);
     });
   });
 
@@ -54,7 +56,13 @@ export default function Main() {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Writes</Breadcrumb.Item>
         </Breadcrumb>
-        <PageContent></PageContent>
+        <PageContent>
+          <ul>
+            {writes.map((write) => (
+              <li key={write.id}>{write.data.title}</li>
+            ))}
+          </ul>
+        </PageContent>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {new Date().getFullYear()} writes.
