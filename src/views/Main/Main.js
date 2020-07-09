@@ -3,8 +3,9 @@ import { useMountEffect } from "../../hooks/useMountEffect";
 import styled from "styled-components";
 import { auth, db } from "../../firebase";
 import { Layout, Menu, Breadcrumb } from "antd";
-import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import WritesTable from "../../components/WritesTable/WritesTable";
+import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
+import { navigate } from '@reach/router';
 
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -37,10 +38,13 @@ export default function Main() {
           <Menu.Item key="1">Writes</Menu.Item>
           <Menu.Item key="2">Add write</Menu.Item>
           <SubMenu icon={<SettingOutlined />} style={{ float: "right" }}>
-            <Menu.Item key="settings:1" icon={<UserOutlined />} onClick={() => auth.signOut()}>
+            <Menu.Item key="settings:1" icon={<UserOutlined />} onClick={() => alert('profile')}>
               Profile
             </Menu.Item>
-            <Menu.Item key="settings:2" icon={<LogoutOutlined />} onClick={() => auth.signOut()}>
+            <Menu.Item key="settings:2" icon={<LinkOutlined />} onClick={() => navigate('/?redirect=false')}>
+              Go to main page
+            </Menu.Item>
+            <Menu.Item key="settings:3" icon={<LogoutOutlined />} onClick={() => auth.signOut()}>
               Logout
             </Menu.Item>
           </SubMenu>
