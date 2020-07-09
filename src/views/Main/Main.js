@@ -1,14 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../../providers/UserProvider";
-import { auth } from "../../firebase";
-import { Layout, Menu, Breadcrumb, Modal, Typography } from "antd";
-import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import { useMountEffect } from "../../hooks/useMountEffect";
 import styled from "styled-components";
+import { auth, db } from "../../firebase";
+import { Layout, Menu, Breadcrumb, Modal, Typography } from "antd";
+import WritesTable from "../../components/WritesTable/WritesTable";
+import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
+import { navigate } from '@reach/router';
 
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 const { Title } = Typography;
 
+const PageContent = styled.div`
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+`;
+  
 const StyledAvatar = styled.img`
   margin: 0 auto;
   width: 125px;
@@ -19,7 +28,8 @@ const StyledAvatar = styled.img`
 export default function Main() {
   const { user } = useContext(UserContext);
   const [visible, setVisible] = useState(false);
-
+  const [writes, setWrites] = useState([]);
+  
   const showModal = () => {
     setVisible(true);
   };
@@ -27,6 +37,18 @@ export default function Main() {
   const handleCancel = () => {
     setVisible(false);
   };
+
+  useMountEffect(() => {
+    const writesRef = db.collection("writes");
+
+    writesRef.get().then(({ docs }) => {
+      const allWrites = [];
+
+      docs.map((obj) => allWrites.push({ ...obj.data(), id: obj.id }));
+
+      setWrites(allWrites);
+    });
+  });
 
   return (
     <Layout className="layout">
@@ -38,7 +60,10 @@ export default function Main() {
             <Menu.Item key="settings:1" icon={<UserOutlined />} onClick={showModal}>
               Profile
             </Menu.Item>
-            <Menu.Item key="settings:2" icon={<LogoutOutlined />} onClick={() => auth.signOut()}>
+            <Menu.Item key="settings:2" icon={<LinkOutlined />} onClick={() => navigate('/?redirect=false')}>
+              Go to main page
+            </Menu.Item>
+            <Menu.Item key="settings:3" icon={<LogoutOutlined />} onClick={() => auth.signOut()}>
               Logout
             </Menu.Item>
           </SubMenu>
@@ -56,7 +81,9 @@ export default function Main() {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Writes</Breadcrumb.Item>
         </Breadcrumb>
-        <div className="site-layout-content">Content</div>
+        <PageContent>
+          <WritesTable dataSource={writes} />
+        </PageContent>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {new Date().getFullYear()} writes.
