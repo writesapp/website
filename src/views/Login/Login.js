@@ -18,7 +18,7 @@ export default function Login() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) navigate("/", { replace: true });
+    if (user) navigate("/app", { replace: true });
   });
 
   return (
