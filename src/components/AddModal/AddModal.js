@@ -27,11 +27,11 @@ export default function AddModal({ visible, setVisible }) {
   };
 
   const validateForm = {
-    required: "${label} is required",
+    required: "${label} is required", // eslint-disable-line
     types: {
-      title: "${label} is not validate title!",
-      description: "${label} is not validate description!",
-      content: "${label} is not validate content url!",
+      title: "${label} is not validate title!", // eslint-disable-line
+      description: "${label} is not validate description!", // eslint-disable-line
+      content: "${label} is not validate content url!", // eslint-disable-line
     },
   };
 
