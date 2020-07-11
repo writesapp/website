@@ -11,6 +11,11 @@ const PageContent = styled.div`
   background: #fff;
   padding: 24px;
   min-height: 280px;
+  overflow: auto;
+
+  @media (max-width: 800px) {
+    padding: 12px;
+  }
 `;
 
 export default function Main() {
@@ -19,7 +24,7 @@ export default function Main() {
   useMountEffect(() => {
     const writesRef = db.collection("writes");
 
-    writesRef.get().then(({ docs }) => {
+    writesRef.onSnapshot(({ docs }) => {
       const allWrites = [];
 
       docs.map((obj) => allWrites.push({ ...obj.data(), id: obj.id }));

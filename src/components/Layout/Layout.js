@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { Layout, Menu } from "antd";
 import { LogoutOutlined, SettingOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { navigate } from "@reach/router";
@@ -10,12 +11,20 @@ import { auth } from "../../firebase";
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
+const StyledContent = styled(Content)`
+  padding: 0 50px;
+
+  @media (max-width: 800px) {
+    padding: 0 25px;
+  }
+`;
+
 export default function AppLayout({ children }) {
   const [userModalVisible, setUserModalVisible] = useState(false);
   const [addModalVisible, setAddModalVisible] = useState(false);
 
   return (
-    <Layout className="layout">
+    <Layout>
       <Header>
         <Menu theme="dark" mode="horizontal" selectable={false}>
           <Menu.Item key="1">Writes</Menu.Item>
@@ -43,7 +52,7 @@ export default function AppLayout({ children }) {
           </SubMenu>
         </Menu>
       </Header>
-      <Content style={{ padding: "0 50px" }}>{children}</Content>
+      <StyledContent>{children}</StyledContent>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {new Date().getFullYear()} writes.
       </Footer>
