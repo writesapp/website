@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Button } from "antd";
 import { db } from "../../firebase";
 import { UserContext } from "../../providers/UserProvider";
+import { newWriteWebhook } from "../../helpers/discord";
 
 export default function AddModal({ visible, setVisible }) {
   const [loading, setLoading] = useState(false);
@@ -23,6 +24,8 @@ export default function AddModal({ visible, setVisible }) {
       .then(() => {
         setLoading(false);
         setVisible(false);
+
+        newWriteWebhook(user, values);
       });
   };
 
@@ -41,7 +44,8 @@ export default function AddModal({ visible, setVisible }) {
         name="new-write"
         labelCol={{ span: 6 }}
         onFinish={submitForm}
-        validateMessages={validateForm}>
+        validateMessages={validateForm}
+      >
         <Form.Item name={["title"]} label="Title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
