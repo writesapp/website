@@ -27,7 +27,7 @@ export default function AppLayout({ children }) {
     <Layout>
       <Header>
         <Menu theme="dark" mode="horizontal" selectable={false}>
-          <Menu.Item key="1">Writes</Menu.Item>
+          <Menu.Item key="1" onClick={() => navigate('/')}>Writes</Menu.Item>
           <Menu.Item key="2" onClick={() => setAddModalVisible(true)}>
             Add write
           </Menu.Item>
