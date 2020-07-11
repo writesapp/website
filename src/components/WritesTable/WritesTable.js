@@ -1,9 +1,12 @@
 import React from "react";
 import { Table, Tag } from "antd";
+import { navigate } from '@reach/router';
 
 export default function WritesTable({ dataSource }) {
   return (
-    <Table dataSource={dataSource} pagination={{ defaultPageSize: 50 }} rowKey="title">
+    <Table dataSource={dataSource} pagination={{ defaultPageSize: 50 }} onRow = {(r) => ({
+      onClick:()=>navigate(`write/${r.id}`)
+    })}>
       <Table.Column title="Title" dataIndex="title" key="title" />
       <Table.Column title="Description" dataIndex="description" key="description" />
       <Table.Column
@@ -12,14 +15,11 @@ export default function WritesTable({ dataSource }) {
         key="tags"
         render={(tags) => (
           <>
-            {tags
-              .trim()
-              .split(" ")
-              .map((tag, i) => (
-                <Tag color="blue" key={`${tag}_${i}`}>
-                  {tag}
-                </Tag>
-              ))}
+            {tags.split(" ").map((tag) => (
+              <Tag color="blue" key={tag}>
+                {tag}
+              </Tag>
+            ))}
           </>
         )}
       />

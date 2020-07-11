@@ -62,7 +62,6 @@ export default function AddModal({ visible, setVisible }) {
           <Button key="back" onClick={() => setVisible(false)}>
             Cancel
           </Button>
-          ,
           <Button key="submit" htmlType="submit" type="primary" loading={loading}>
             Submit
           </Button>
