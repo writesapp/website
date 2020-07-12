@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Modal, Form, Input, Button } from "antd";
+import { Modal, Form, Input, Button, Space } from "antd";
 import { db } from "../../firebase";
 import { UserContext } from "../../providers/UserProvider";
 import { newWriteWebhook } from "../../helpers/discord";
@@ -59,12 +59,14 @@ export default function AddModal({ visible, setVisible }) {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 6 }}>
-          <Button key="back" onClick={() => setVisible(false)}>
-            Cancel
-          </Button>
-          <Button key="submit" htmlType="submit" type="primary" loading={loading}>
-            Submit
-          </Button>
+          <Space>
+            <Button key="back" onClick={() => setVisible(false)}>
+              Cancel
+            </Button>
+            <Button key="submit" htmlType="submit" type="primary" loading={loading}>
+              Submit
+            </Button>
+          </Space>
         </Form.Item>
       </Form>
     </Modal>

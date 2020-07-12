@@ -14,7 +14,7 @@ const PageContent = styled.div`
   overflow: auto;
 
   @media (max-width: 800px) {
-    padding: 12px;
+    padding: 0;
   }
 `;
 
