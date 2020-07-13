@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link, navigate } from "@reach/router";
 import { UserContext } from "../../providers/UserProvider";
-import SEO from "../../components/SEO";
+import SEO from "../../components/SEO/SEO";
 
 export default function Landing() {
   const { user } = useContext(UserContext);

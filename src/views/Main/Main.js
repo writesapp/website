@@ -6,7 +6,7 @@ import Layout from "../../components/Layout/Layout";
 import { db } from "../../firebase";
 import WritesTable from "../../components/WritesTable/WritesTable";
 import { useMountEffect } from "../../hooks/useMountEffect";
-import SEO from "../SEO/SEO";
+import SEO from "../../components/SEO/SEO";
 
 const PageContent = styled.div`
   background: #fff;
