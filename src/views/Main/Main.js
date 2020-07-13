@@ -6,6 +6,7 @@ import Layout from "../../components/Layout/Layout";
 import { db } from "../../firebase";
 import WritesTable from "../../components/WritesTable/WritesTable";
 import { useMountEffect } from "../../hooks/useMountEffect";
+import SEO from "../SEO/SEO";
 
 const PageContent = styled.div`
   background: #fff;
@@ -34,14 +35,18 @@ export default function Main() {
   });
 
   return (
-    <Layout>
-      <Breadcrumb style={{ margin: "16px 0" }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Writes</Breadcrumb.Item>
-      </Breadcrumb>
-      <PageContent>
-        <WritesTable dataSource={writes} />
-      </PageContent>
-    </Layout>
+    <>
+      <SEO title="Writes" />
+
+      <Layout>
+        <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Writes</Breadcrumb.Item>
+        </Breadcrumb>
+        <PageContent>
+          <WritesTable dataSource={writes} />
+        </PageContent>
+      </Layout>
+    </>
   );
 }
