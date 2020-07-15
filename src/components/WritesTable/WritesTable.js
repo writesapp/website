@@ -20,14 +20,15 @@ export default function WritesTable({ dataSource }) {
         key="tags"
         render={(tags) => (
           <>
-            {tags
-              .trim()
-              .split(" ")
-              .map((tag, i) => (
-                <Tag color="blue" key={tag + (i + 1)}>
-                  {tag}
-                </Tag>
-              ))}
+            {typeof tags === "string" &&
+              tags
+                .trim()
+                .split(" ")
+                .map((tag, i) => (
+                  <Tag color="blue" key={tag + (i + 1)} data-testid="tag">
+                    {tag}
+                  </Tag>
+                ))}
           </>
         )}
       />
