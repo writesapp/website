@@ -3,8 +3,9 @@
 </p>
 <h1 align="center">writes.</h1>
 <p align="center"><i>because who has time to write.</i></p>
-
-![Deploy to Firebase Hosting](https://github.com/writesapp/website/workflows/Deploy%20to%20Firebase%20Hosting/badge.svg)
+<p align="center">
+<img src="https://github.com/writesapp/website/workflows/Deploy%20to%20Firebase%20Hosting/badge.svg" />
+</p>
 
 ## Contributing
 
