@@ -1,21 +1,39 @@
 import React, { useState, useContext } from "react";
-import { Modal, Form, Input, Button, Space } from "antd";
+import styled from "styled-components";
+import { Breadcrumb, Form, Input, Button, Space } from "antd";
 import { db } from "../../firebase";
 import { UserContext } from "../../providers/UserProvider";
 import { newWriteWebhook } from "../../helpers/discord";
 
-export default function AddModal({ visible, setVisible }) {
+import { Link, navigate } from '@reach/router';
+import SEO from "../../components/SEO/SEO";
+import Layout from "../../components/Layout/Layout";
+
+const PageContent = styled.div`
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+  overflow: auto;
+
+  @media (max-width: 800px) {
+    padding: 0;
+  }
+`;
+
+export default function Add({ visible, setVisible }) {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
 
   const submitForm = (values) => {
     setLoading(true);
 
+    const { title, description, content, tags } = values;
+
     const data = {
-      title: values.title,
-      description: values.description,
-      content: values.content,
-      tags: values.tags,
+      title,
+      description,
+      content,
+      tags,
       author: user.uid,
     };
 
@@ -23,9 +41,8 @@ export default function AddModal({ visible, setVisible }) {
       .add(data)
       .then(() => {
         setLoading(false);
-        setVisible(false);
-
         newWriteWebhook(user, values);
+        navigate('/app');
       });
   };
 
@@ -39,10 +56,21 @@ export default function AddModal({ visible, setVisible }) {
   };
 
   return (
-    <Modal visible={visible} title="Add Write" onCancel={() => setVisible(false)} footer={null}>
+    <>
+    <SEO title="Add write" />
+
+    <Layout>
+      <Breadcrumb style={{ margin: "16px 0" }}>
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Add write</Breadcrumb.Item>
+      </Breadcrumb>
+      <PageContent>
       <Form
         name="new-write"
         labelCol={{ span: 6 }}
+        wrapperCol={{ span: 14 }}
         onFinish={submitForm}
         validateMessages={validateForm}
       >
@@ -60,7 +88,7 @@ export default function AddModal({ visible, setVisible }) {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 6 }}>
           <Space>
-            <Button key="back" onClick={() => setVisible(false)}>
+            <Button key="back" onClick={() => navigate('/')}>
               Cancel
             </Button>
             <Button key="submit" htmlType="submit" type="primary" loading={loading}>
@@ -69,6 +97,8 @@ export default function AddModal({ visible, setVisible }) {
           </Space>
         </Form.Item>
       </Form>
-    </Modal>
+      </PageContent>
+    </Layout>
+    </>
   );
 }
