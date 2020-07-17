@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { Breadcrumb, Form, Input, Button, Space } from "antd";
+import { Breadcrumb } from "antd";
 import { db } from "../../firebase";
 import { UserContext } from "../../providers/UserProvider";
 import { newWriteWebhook } from "../../helpers/discord";
@@ -8,6 +8,7 @@ import { newWriteWebhook } from "../../helpers/discord";
 import { Link, navigate } from "@reach/router";
 import SEO from "../../components/SEO/SEO";
 import Layout from "../../components/Layout/Layout";
+import AddForm from "../../components/AddForm/AddForm";
 
 const PageContent = styled.div`
   background: #fff;
@@ -67,40 +68,7 @@ export default function Add({ visible, setVisible }) {
           <Breadcrumb.Item>Add write</Breadcrumb.Item>
         </Breadcrumb>
         <PageContent>
-          <Form
-            name="new-write"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 14 }}
-            onFinish={submitForm}
-            validateMessages={validateForm}
-          >
-            <Form.Item name={["title"]} label="Title" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name={["description"]} label="Description" rules={[{ required: true }]}>
-              <Input.TextArea />
-            </Form.Item>
-            <Form.Item
-              name={["content"]}
-              label="Content url"
-              rules={[{ type: "url", required: true }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item name={["tags"]} label="Tags">
-              <Input />
-            </Form.Item>
-            <Form.Item wrapperCol={{ offset: 6 }}>
-              <Space>
-                <Button key="back" onClick={() => navigate("/")}>
-                  Cancel
-                </Button>
-                <Button key="submit" htmlType="submit" type="primary" loading={loading}>
-                  Submit
-                </Button>
-              </Space>
-            </Form.Item>
-          </Form>
+          <AddForm onFinish={submitForm} validateMessages={validateForm} loading={loading} />
         </PageContent>
       </Layout>
     </>
