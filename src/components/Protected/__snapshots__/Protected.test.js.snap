@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the view without changing anything 1`] = `
+<div>
+  <div
+    data-testid="bar-view"
+  >
+    bar
+  </div>
+</div>
+`;

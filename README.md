@@ -17,3 +17,4 @@
 - Make a pull request
 - Commit any suggestions given to you by the team
 - Merge time 🔥
+
