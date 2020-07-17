@@ -26,6 +26,10 @@ it("renders without crashing, when didn't pass user object", () => {
   renderWithContext(<Protected view={Foo} />);
 });
 
+it("throws an error when didn't pass any view", () => {
+  expect(() => renderWithContext(<Protected />, mockUser)).toThrowErrorMatchingSnapshot();
+});
+
 it("renders the view properly", () => {
   const { getByTestId } = renderWithContext(<Protected view={Foo} />, mockUser);
 
