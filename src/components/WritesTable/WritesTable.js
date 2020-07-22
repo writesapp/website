@@ -8,7 +8,7 @@ export default function WritesTable({ dataSource }) {
       dataSource={dataSource}
       pagination={{ defaultPageSize: 10, position: ["bottomCenter"] }}
       onRow={(r) => ({
-        onClick: () => navigate(`write/${r.id}`),
+        onClick: () => navigate(`/app/write/${r.id}`),
       })}
       rowKey="title"
     >

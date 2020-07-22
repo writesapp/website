@@ -26,10 +26,10 @@ export default function AppLayout({ children }) {
       <Header>
         <Menu theme="dark" mode="horizontal" selectable={false}>
           <Menu.Item key="1">
-            <Link to="/">Writes</Link>
+            <Link to="/app">Writes</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/add">Add write</Link>
+            <Link to="/app/add">Add write</Link>
           </Menu.Item>
           <SubMenu icon={<SettingOutlined />} style={{ float: "right" }}>
             <Menu.Item

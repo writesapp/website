@@ -15,8 +15,8 @@ function App() {
       <Router>
         <Landing path="/" />
         <Protected path="/app" view={Main} />
-        <Protected path="/add" view={Add} />
-        <Protected path="/write/:writeId" view={Write} />
+        <Protected path="/app/add" view={Add} />
+        <Protected path="/app/write/:writeId" view={Write} />
         <Login path="/login" />
       </Router>
     </UserProvider>
