@@ -63,7 +63,7 @@ export default function Add({ visible, setVisible }) {
       <Layout>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>
-            <Link to="/">Home</Link>
+            <Link to="/app">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Add write</Breadcrumb.Item>
         </Breadcrumb>
