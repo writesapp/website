@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Breadcrumb } from "antd";
 
 import Layout from "../../components/Layout/Layout";
@@ -7,17 +6,7 @@ import { db } from "../../firebase";
 import WritesTable from "../../components/WritesTable/WritesTable";
 import { useMountEffect } from "../../hooks/useMountEffect";
 import SEO from "../../components/SEO/SEO";
-
-const PageContent = styled.div`
-  background: #fff;
-  padding: 24px;
-  min-height: 280px;
-  overflow: auto;
-
-  @media (max-width: 800px) {
-    padding: 0;
-  }
-`;
+import PageContent from "../../components/PageContent/PageContent";
 
 export default function Main() {
   const [writes, setWrites] = useState([]);

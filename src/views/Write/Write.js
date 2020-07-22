@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { Link } from "@reach/router";
 
@@ -7,17 +6,7 @@ import { useMountEffect } from "../../hooks/useMountEffect";
 import { db } from "../../firebase";
 import Layout from "../../components/Layout/Layout";
 import SEO from "../../components/SEO/SEO";
-
-const PageContent = styled.div`
-  background: #fff;
-  padding: 24px;
-  min-height: 280px;
-  overflow: auto;
-
-  @media (max-width: 800px) {
-    padding: 12px;
-  }
-`;
+import PageContent from "../../components/PageContent/PageContent";
 
 export default function Write(props) {
   const [write, setWrite] = useState({});
