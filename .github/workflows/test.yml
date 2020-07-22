@@ -1,6 +1,9 @@
 name: Test the PR
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - "/src/**"
+      - "/public/**"
 
 jobs:
   lint:
